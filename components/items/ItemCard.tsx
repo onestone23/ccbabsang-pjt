@@ -1,0 +1,31 @@
+import type { Item } from '@/lib/api/item';
+
+export const ItemCard = ({ item }: { item: Item }) => {
+  const isSoldOut = item.current <= 0;
+
+  return (
+    <article
+      className={[
+        'rounded-2xl border p-3 shadow-sm transition border-black/10',
+        isSoldOut ? ' bg-gray-100 text-gray-500' : ' bg-white hover:shadow-md',
+      ].join(' ')}
+    >
+      <div className='relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-black/5'>
+        <div className='h-full w-full' />
+        {isSoldOut ? (
+          <div className='absolute inset-x-3 bottom-3'>
+            <span className='rounded-full bg-gray-700/90 px-2.5 py-1 text-xs font-semibold text-white'>품절</span>
+          </div>
+        ) : null}
+      </div>
+
+      <div className='mt-3 min-w-0'>
+        <div className='truncate text-sm font-semibold'>{item.name}</div>
+        <div className='mt-1 text-sm font-medium opacity-80'>{item.price}</div>
+        <div className='mt-2 text-xs opacity-70'>
+          재고 {Math.max(item.current, 0)} / {item.limit}
+        </div>
+      </div>
+    </article>
+  );
+};
