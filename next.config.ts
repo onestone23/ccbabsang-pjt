@@ -1,7 +1,12 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'export',
+  basePath: '/ccbabsang-pjt',
+  assetPrefix: '/ccbabsang-pjt',
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
