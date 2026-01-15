@@ -1,14 +1,20 @@
 import type { Item } from '@/lib/api/item';
 
-export const ItemCard = ({ item }: { item: Item }) => {
+export const ItemCard = ({ item, onClick }: { item: Item; onClick: (item: Item) => void }) => {
   const isSoldOut = item.current <= 0;
+
+  const handleClick = () => {
+    if (isSoldOut) return;
+    onClick(item);
+  };
 
   return (
     <article
       className={[
-        'rounded-2xl border p-3 shadow-sm transition border-black/10 cursor-pointer',
-        isSoldOut ? ' bg-gray-100 text-gray-500' : ' bg-white hover:shadow-md',
+        'rounded-2xl border p-3 shadow-sm transition border-black/10',
+        isSoldOut ? 'cursor-not-allowed bg-gray-100 text-gray-500' : 'cursor-pointer bg-white hover:shadow-md',
       ].join(' ')}
+      onClick={handleClick}
     >
       <div className='relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-black/5'>
         <div className='h-full w-full' />

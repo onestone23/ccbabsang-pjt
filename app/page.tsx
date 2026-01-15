@@ -1,13 +1,22 @@
 'use client';
 
 import Image from 'next/image';
+import { useState } from 'react';
 
+import { ItemDetailModal } from '@/components/items/ItemDetailModal';
 import { ItemsGrid } from '@/components/items/ItemsGrid';
 import { ErrorState } from '@/components/ui/ErrorState';
+import type { Item } from '@/lib/api/item';
 import { useItems } from '@/lib/hooks/useItems';
 
 const Page = () => {
   const { items, isLoading, error, refetch } = useItems();
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
+
+  const handleItemClick = (item: Item) => {
+    if (item.current <= 0) return;
+    setSelectedItem(item);
+  };
 
   return (
     <main className='min-h-screen bg-white text-black'>
@@ -31,8 +40,20 @@ const Page = () => {
       </header>
 
       <section className='mx-auto max-w-6xl px-4 py-6' aria-label='상품 목록'>
-        {error ? <ErrorState message={error} onRetry={refetch} /> : <ItemsGrid items={items} isLoading={isLoading} />}
+        {error ? (
+          <ErrorState message={error} onRetry={refetch} />
+        ) : (
+          <ItemsGrid items={items} isLoading={isLoading} onItemClick={handleItemClick} />
+        )}
       </section>
+
+      {selectedItem ? (
+        <ItemDetailModal
+          item={selectedItem}
+          onClose={() => setSelectedItem(null)}
+          onPurchase={() => alert('준비 중입니다.')}
+        />
+      ) : null}
     </main>
   );
 };
