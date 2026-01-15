@@ -6,7 +6,7 @@ export const ItemCard = ({ item }: { item: Item }) => {
   return (
     <article
       className={[
-        'rounded-2xl border p-3 shadow-sm transition border-black/10',
+        'rounded-2xl border p-3 shadow-sm transition border-black/10 cursor-pointer',
         isSoldOut ? ' bg-gray-100 text-gray-500' : ' bg-white hover:shadow-md',
       ].join(' ')}
     >
