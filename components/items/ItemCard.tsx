@@ -1,4 +1,5 @@
 import type { Item } from '@/lib/api/item';
+import Image from 'next/image';
 
 export const ItemCard = ({ item, onClick }: { item: Item; onClick: (item: Item) => void }) => {
   const isSoldOut = item.current <= 0;
@@ -17,7 +18,11 @@ export const ItemCard = ({ item, onClick }: { item: Item; onClick: (item: Item) 
       onClick={handleClick}
     >
       <div className='relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-black/5'>
-        <div className='h-full w-full' />
+        {item.image ? (
+          <Image src={item.image} alt={item.name} className='h-full w-full object-cover' loading='lazy' />
+        ) : (
+          <div className='h-full w-full' />
+        )}
         {isSoldOut ? (
           <div className='absolute inset-x-3 bottom-3'>
             <span className='rounded-full bg-gray-700/90 px-2.5 py-1 text-xs font-semibold text-white'>품절</span>

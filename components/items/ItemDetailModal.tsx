@@ -1,6 +1,7 @@
 'use client';
 
 import type { Item } from '@/lib/api/item';
+import Image from 'next/image';
 
 export const ItemDetailModal = ({
   item,
@@ -33,7 +34,11 @@ export const ItemDetailModal = ({
           <div className='flex-1 overflow-y-auto p-4'>
             <div className='grid gap-4 sm:grid-cols-2'>
               <div className='aspect-[4/3] overflow-hidden rounded-xl bg-black/5'>
-                <div className='h-full w-full' />
+                {item.image ? (
+                  <Image src={item.image} alt={item.name} className='h-full w-full object-cover' loading='lazy' />
+                ) : (
+                  <div className='h-full w-full' />
+                )}
               </div>
               <div className='min-w-0 flex flex-col justify-between'>
                 <div>
