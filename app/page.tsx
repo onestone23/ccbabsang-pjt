@@ -10,6 +10,7 @@ import type { Item } from '@/lib/api/item';
 import { useItems } from '@/lib/hooks/useItems';
 
 const Page = () => {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
   const { items, isLoading, error, refetch } = useItems();
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
 
@@ -24,7 +25,7 @@ const Page = () => {
         <div className='mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4'>
           <div className='flex min-w-0 items-center gap-3'>
             <Image
-              src='/image/logo.jpeg'
+              src={`${basePath}/image/logo.jpeg`}
               alt='척척밥상 로고'
               width={40}
               height={40}
